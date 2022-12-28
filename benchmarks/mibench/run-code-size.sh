@@ -1,4 +1,4 @@
-LLVM_SIZE=../../build/release/bin/llvm-size
+LLVM_SIZE=../../install/bin/llvm-size
 DIR=$(dirname $0)
 cd ${DIR}
 
