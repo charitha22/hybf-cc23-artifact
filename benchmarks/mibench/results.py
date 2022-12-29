@@ -40,8 +40,7 @@ output = stream.read()
 
 for ftype in ftypes:
   filename = path+'/'+ftype
-  #stream = os.popen('/home/rodrigo/llvm/size-inlining/build/release/bin/llvm-size '+filename)
   stream = os.popen(sizeexec+' '+filename)
   data = stream.read().strip().split('\n')[1]
   text_size = data.split()[0]
-  print str(bench)+', '+str(ftype)+', '+str(text_size)
+  print(str(bench)+', '+str(ftype)+', '+str(text_size))
