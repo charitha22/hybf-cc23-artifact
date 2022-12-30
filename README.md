@@ -32,7 +32,7 @@ technique.
 It also produces a dot file with control-flow graph produced by each
 technique, including the baseline with no branch fusion.
 
-For example, running on a AArch64 machine procues the following output:
+For example, running on a AArch64 machine produces the following output:
 ```
 BASELINE
    text	   data	    bss	    dec	    hex	filename
