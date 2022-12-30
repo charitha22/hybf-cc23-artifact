@@ -99,4 +99,5 @@ add_llvm_component_library(LLVMScalarOpts
   Support
   TransformUtils
   IPO
+  CFMelder
   )
