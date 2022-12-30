@@ -32,10 +32,10 @@ with open(filename) as f:
       name = 'SOA'
     data[vals[0]][ftype+name] = float(vals[2])
 
-gorder = ['soa', 'cfmelder', 'brfusion-pa', 'cfmelder-brfusion-pa']
+gorder = ['cfmelder', 'brfusion-pa', 'cfmelder-brfusion-pa']
 #gorder = ['soa', 'cfmelder', 'brfusion-pa', 'brfusion-nw', 'cfmelder-brfusion-pa', 'cfmelder-brfusion-nw']
 #colors = ['black',   '#8bb9fa', '#1270f4',   '#fa8072','#ff3e20']
-colors = ['#1A0841',  '#4F9DA6', '#FFAD5A', '#FF5959']
+colors = ['#4F9DA6', '#FFAD5A', '#FF5959']
 
 mapname = {}
 mapname['soa'] = 'Single-Block'
