@@ -45,6 +45,9 @@ extern __far struct Custom custom;   /* Custom chips */
 #include <proto/exec.h>
 #include <proto/timer.h>
 
+
+void mygettimeofday (struct timeval *tp, struct timezone *tzp);
+
 /* Stuff used in noise.c, defined in random.c -- RKNOP 940613*/
 extern struct timerequest *TimerIO;
 extern union { struct timeval t;
@@ -203,10 +206,10 @@ static unsigned noiseTickSize(void)
     struct timeval tv_base, tv_old, tv_new;
 
     i = j = 0;
-    gettimeofday(&tv_base, 0);
+    mygettimeofday(&tv_base, 0);
     tv_old = tv_base;
     do {
-	gettimeofday(&tv_new, 0);
+	mygettimeofday(&tv_new, 0);
 	if (tv_new.tv_usec > tv_old.tv_usec + 2) {
 	    deltas[i++] = tv_new.tv_usec - tv_base.tv_usec +
 		1000000 * (tv_new.tv_sec - tv_base.tv_sec);
@@ -365,7 +368,7 @@ noise(void)
 	if (!ticksize)
 	    ticksize = noiseTickSize();
 
-	gettimeofday(&tv, NULL);
+	mygettimeofday(&tv, NULL);
 	randPoolAddBytes((byte *) & tv, sizeof(tv));
 
 	/* This may wrap, but it's unsigned, so that's okay */

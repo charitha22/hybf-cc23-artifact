@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include <sys/time.h>
 
-gettimeofday (tp, tzp)
+mygettimeofday (tp, tzp)
      struct timeval *tp;
      struct timezone *tzp;
 {
@@ -16,3 +16,4 @@ gettimeofday (tp, tzp)
   tp->tv_sec = time ((long *)0);
   tp->tv_usec = 0;
 }
+
