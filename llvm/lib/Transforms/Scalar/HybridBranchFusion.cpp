@@ -81,10 +81,9 @@ public:
   DominatorTree DT;
   PostDominatorTree PDT;
   ValueToValueMapTy VMap;
+  bool NeedPDT{false};
 
-  ClonedFunctionInfo(Function* F) : Original(F) {
-    Reinitialize();
-  }
+  ClonedFunctionInfo(Function* F, bool NeedPDT) : Original(F), NeedPDT(NeedPDT) {};
 
   ~ClonedFunctionInfo() {
     Invalidate();
@@ -95,7 +94,8 @@ public:
       VMap.clear();
       Cloned = llvm::CloneFunction(Original, VMap);
       DT = DominatorTree(*Cloned);
-      PDT = PostDominatorTree(*Cloned);
+      if (NeedPDT)
+        PDT = PostDominatorTree(*Cloned);
     }
   }
 
@@ -127,8 +127,9 @@ static bool runImpl(Function *F, DominatorTree &DT, PostDominatorTree &PDT,
 
   do {
     LocalChange = false;
-    ClonedFunctionInfo CFMFunc(F);
-    ClonedFunctionInfo BFFunc(F);
+    int BeforeSize = EstimateFunctionSize(F, TTI);
+    ClonedFunctionInfo CFMFunc(F, true);
+    ClonedFunctionInfo BFFunc(F, false);
 
     for (BasicBlock *BB : post_order(&F->getEntryBlock())) {
       if (VisitedBBs.count(BB)) continue;
@@ -136,7 +137,6 @@ static bool runImpl(Function *F, DominatorTree &DT, PostDominatorTree &PDT,
 
       BranchInst *BI = dyn_cast<BranchInst>(BB->getTerminator());
       if (BI && BI->isConditional()) {
-        int BeforeSize = EstimateFunctionSize(F, TTI);
 
         int CFMProfit = 0;
         SmallVector<unsigned> ProfitableIdxs;
@@ -146,12 +146,14 @@ static bool runImpl(Function *F, DominatorTree &DT, PostDominatorTree &PDT,
           SmallVector<unsigned> EmptyIdxs; // run on all region matches
           ProfitableIdxs = runCFM(CFMFunc.getClonedBB(BB), CFMFunc.DT,
               CFMFunc.PDT, TTI, EmptyIdxs);
+          bool CFMSuccess = ProfitableIdxs.size() > 0;
           // compute CFM code size reduction
-          CFMProfit = BeforeSize - EstimateFunctionSize(CFMFunc.Cloned, TTI);
-          if (ProfitableIdxs.size() > 0)
+          CFMProfit = 
+              CFMSuccess ? BeforeSize - EstimateFunctionSize(CFMFunc.Cloned, TTI) : 0;
+          errs() << "CFM code reduction : " << CFMProfit << "\n";
+          if (CFMSuccess)
             CFMFunc.Invalidate();
         }
-        errs() << "CFM code reduction : " << CFMProfit << "\n";
 
         int BFProfit = 0;
         if (!RunCFMOnly || RunBFOnly) {
@@ -180,9 +182,7 @@ static bool runImpl(Function *F, DominatorTree &DT, PostDominatorTree &PDT,
             CFMCount++;
           }
           LocalChange = true;
-        }
 
-        if (LocalChange) {
           DT.recalculate(*F);
           PDT.recalculate(*F);
           break;
