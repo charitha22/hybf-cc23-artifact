@@ -76,5 +76,16 @@ new branch fusion techniques. In this section, we give a brief overview of the s
 _HyBF_ along with details on what is implemented on each source file.
 
 
+_HyBF_ is implemented as a `LLVM` module pass in `<ARTIFACT_HOME>/llvm/lib/Transforms/Scalar/HybridBranchFusion.cpp`. The `run`
+method of this module pass iterate over all functions of the module and apply the best branch fusion technique 
+(out of CFM-CS and SEME-Fusion) to given conditional branch location.
+Application of HyBF for a given function is implemented in `runImpl` method. 
+This method iterates over all conditional branches of the functions and applies SEME-Fusion and CFM-CS to 
+cloned versions of the same function.
+If any of the techniques is profitable, the best approach is applied for the original function.
+`EstimateFunctionSize` method implements the IR size calculation for a given function. 
+Any other novel branch fusion technique can be also integrated into the `runImpl` method similarly.
 
+
+_CFM-CS_ technique is implemented inside `<ARTIFACT_HOME>/llvm/lib/Transforms/CFMelder/` directory. 
 
