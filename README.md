@@ -31,6 +31,11 @@ bash scripts/build-install.sh
 After running the above command, the folder `install/bin` should contain
 `clang` and `opt` that can be used for compiling C/C++ code using HyBF.
 
+## Reproducing the Main Results
+
+### MiBench
+
+
 ## Customization and Reusability 
 ### Experiment Customization
 
