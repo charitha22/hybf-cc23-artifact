@@ -87,5 +87,6 @@ If any of the techniques is profitable, the best approach is applied for the ori
 Any other novel branch fusion technique can be also integrated into the `runImpl` method similarly.
 
 
-_CFM-CS_ technique is implemented inside `<ARTIFACT_HOME>/llvm/lib/Transforms/CFMelder/` directory. 
+_SEME-Fusion_ technique is implemented in `<ARTIFACT_HOME>/llvm/lib/Transforms/Scalar/BranchFusion.cpp` and
+_CFM-CS_ technique is implemented inside `<ARTIFACT_HOME>/llvm/lib/Transforms/CFMelder/` directory.
 
