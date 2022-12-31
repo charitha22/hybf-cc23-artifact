@@ -76,7 +76,7 @@ Run following command to apply the transformations to this example.
 ```
 bash run-cfm-exmaple.sh
 ```
-On an X86 machine, this gives the output.
+On an X86 machine, this gives the output:
 ```
 BASELINE
    text    data     bss     dec     hex filename
