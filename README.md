@@ -48,7 +48,7 @@ bash run-seme-fusion-example.sh
 This command outputs the text size of the object file produced by each
 technique. It also produces a dot file with control-flow graph produced by each
 technique, including the baseline CFG. The generated dot files can be viewed using
-an online graph viewer like (https://dreampuf.github.io/GraphvizOnline/)[https://dreampuf.github.io/GraphvizOnline/].
+an online graph viewer like [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/).
 
 For example, running on a AArch64 machine produces the following output:
 ```
