@@ -67,7 +67,9 @@ HYBF
 ```
 The output above shows that both SEME-Fusion and HyBF produce an
 object file with a text size of 745 bytes, while the other techniques produce
-a text size of 813 bytes. A reduction of 8.36%.
+a text size of 813 bytes. A reduction of 8.36%. Note that HyBF applies the best version 
+of the two techniques, therefore in this case HyBF end up applying SEME-Fusion
+obtaining the same reduction in size.
 
 
 Similarly, the file `cfm-cs-better.c` contains a function where CFM-CS outperforms SEME-Fusion.
