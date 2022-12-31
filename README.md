@@ -90,27 +90,27 @@ of the two techniques, therefore in this case HyBF end up applying SEME-Fusion
 obtaining the same reduction in size.
 
 
-Similarly, the file `cfm-cs-better.c` contains a function where CFM-CS outperforms SEME-Fusion.
-Run following command to apply the transformations to this example.
+Similarly, the file `cfm-better.c` contains a function where CFM-CS outperforms SEME-Fusion.
+Run the following command to apply the transformations to this example.
 ```
 bash run-cfm-exmaple.sh
 ```
-On an X86 machine, this gives the output:
+On an AArch64 machine, the command above produces the following output:
 ```
 BASELINE
-   text    data     bss     dec     hex filename
-    446       0       0     446     1be cfm-better.c.baseline.o
+   text	   data	    bss	    dec	    hex	filename
+    352	      0	      0	    352	    160	cfm-better.c.baseline.o
 SEME-FUSION
-   text    data     bss     dec     hex filename
-    446       0       0     446     1be cfm-better.c.seme-fusion.o
+   text	   data	    bss	    dec	    hex	filename
+    352	      0	      0	    352	    160	cfm-better.c.seme-fusion.o
 CFM-CS
-   text    data     bss     dec     hex filename
-    349       0       0     349     15d cfm-better.c.cfm.o
+   text	   data	    bss	    dec	    hex	filename
+    316	      0	      0	    316	    13c	cfm-better.c.cfm.o
 HYBF
-   text    data     bss     dec     hex filename
-    349       0       0     349     15d cfm-better.c.hybf.o
+   text	   data	    bss	    dec	    hex	filename
+    316	      0	      0	    316	    13c	cfm-better.c.hybf.o
 ```
-This shows a size reduction of 21.75% in text section of the binary for CFM-CS
+This shows a size reduction of 10.22% in text section of the binary for CFM-CS
  over baseline or SEME-Fusion.
 
 
