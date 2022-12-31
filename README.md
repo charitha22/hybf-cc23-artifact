@@ -1,4 +1,4 @@
-# CC-2023 Artifact Evaluation: _HyBF: A Hybrid Branch Fusion Strategy for Code Size Reduction_
+# CC-2023 Artifact: "_HyBF: A Hybrid Branch Fusion Strategy for Code Size Reduction_"
 
 ## Dependencies
 
