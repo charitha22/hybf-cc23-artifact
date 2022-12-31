@@ -2,8 +2,8 @@
 import matplotlib
 
 import os
-#if os.environ.get('DISPLAY','') == '':
-#  matplotlib.use('Agg')
+if os.environ.get('DISPLAY','') == '':
+  matplotlib.use('Agg')
 
 #import seaborn as sns
 import matplotlib.pyplot as plt

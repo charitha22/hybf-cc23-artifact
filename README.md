@@ -17,8 +17,8 @@ For more information about LLVM dependencies check the [LLVM project page](https
 
 ### Collecting statistics and plotting the results:   
 * python3 (>= 3.6)
-* python3-numpy   
-* python3-matplotlib    
+* python3-numpy (>= 1.13)  
+* python3-matplotlib (>= 2.1)
 
 ### Running the MiBench benchmark suite:  
 * zlib1g-dev   
@@ -68,7 +68,7 @@ In order to generate the bar plot with the code size reduction, as shown in
 Figure 10 of the paper, run the following command line inside the folder
 `benchmarks`.
 ```
-bash plot-code-size.py mibench/results.csv
+python3 plot-code-size.py mibench/results.csv
 ```
 The command line above will produce the files named `absolute-reduction.pdf`
 and `percentage-reduction.pdf`.

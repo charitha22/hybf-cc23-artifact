@@ -1,12 +1,11 @@
-
+#!/usr/bin/env python3
 import sys
 import numpy as np
 import myplots as plts
 
-path = sys.argv[1]
+filename = sys.argv[1]
 data = {}
 
-filename = path
 with open(filename) as f:
   for line in f:
     vals = [val.strip() for val in line.strip().split(',')]
