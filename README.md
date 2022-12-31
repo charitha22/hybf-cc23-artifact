@@ -15,7 +15,8 @@ Running the MiBench benchmark suite:
 * zlib1g-dev   
 
 
-## Analyzing Each Technique
+## Customization and Reusability 
+### Experiment Customization
 
 In the folder `benchmarks/kernels`, we have example of functions highlighting
 the strengths of each technique. For example, the file `seme-fusion-better.c`
@@ -50,3 +51,14 @@ HYBF
 The output above shows that both SEME-Fusion and HyBF produce an
 object file with a text size of 745 bytes, while the other techniques produce
 a text size of 813 bytes. A reduction of 8.36%.
+
+
+### Modifying/Extending HyBF
+
+_HyBF_ is implemented as `LLVM-IR` transformation pass, therefore it can be extended to add new features or 
+new branch fusion techniques. In this section, we give a brief overview of the source code structure of 
+_HyBF_ along with details on what is implemented on each source file.
+
+
+
+
