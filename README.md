@@ -1,29 +1,40 @@
 # CC-2023 Artifact Evaluation Instructions for the Paper _HyBF: A Hybrid Branch Fusion Strategy for Code Size Reduction_
 ## Dependencies
 
-Building LLVM:   
-* cmake   
-* build-essential   
+The default apt packages should be enough for Ubuntu >= 19.10. Default packages plus a pre-built cmake should work for Ubuntu >= 18.04. For older systems, you might have to satisfy the dependencies manually. 
 
-Collecting statistics and plotting the results:   
-* python3   
+### Building LLVM: 
+* cmake (>= 3.13.4)
+    If your system's cmake is older than that, source ./scripts/install-cmake.sh to install a recent pre-built binary and add it to the path
+* build-essential
+    This will pull the rest of the dependencies
+
+For more information about LLVM dependencies check the [LLVM project page](https://llvm.org/docs/GettingStarted.html#software).
+
+### Collecting statistics and plotting the results:   
+* python3 (>= 3.6)
 * python3-numpy   
 * python3-matplotlib    
 
-Running the MiBench benchmark suite:  
+### Running the MiBench benchmark suite:  
 * zlib1g-dev   
 
 ## Building Clang/LLVM
 
 In order to run HyBF and the different branch fusion techniques, we first
-need to build the LLVM compiler toolchain. We provide two helper scripts.
+need to build the LLVM compiler toolchain. We provide three helper scripts.
 
-The first script runs `cmake` with the appropriate flags.
+The first (optional) script downloads a recent pre-bulit CMake
+```
+source scripts/install-cmake.sh
+```
+
+The second script runs `cmake` with the appropriate flags.
 ```
 bash scripts/run-cmake.sh
 ```
 
-The second script builds the LLVM compiler toolchain, including `clang`.
+The third script builds the LLVM compiler toolchain, including `clang`.
 ```
 bash scripts/build-install.sh
 ```
