@@ -34,20 +34,21 @@ After running the above command, the folder `install/bin` should contain
 ## Customization and Reusability 
 ### Experiment Customization
 
+To demonstrate how _HyBF_ and its accompanying branch fusion techniques works
+we provide an experiment with two simplified real world code examples.
 In the folder `benchmarks/kernels`, we have example of functions highlighting
-the strengths of each technique. For example, the file `seme-fusion-better.c`
-contains a function where SEME-Fusion outperforms CFM-CS. Similarly, the file
-`cfm-cs-better.c` contains a function where CFM-CS outperforms SEME-Fusion.
+the strengths of each technique. 
 
-In order to analyze each technique on these examples, we need to run
-the command:
+The file `seme-fusion-better.c` contains a function where SEME-Fusion outperforms CFM-CS. 
+Run the following command to apply all different techniques (HyBF, CFM-CS, SEME-Fusion and baseline)
+to this example.
 ```
-bash run.sh
+bash run-seme-fusion-example.sh
 ```
 This command outputs the text size of the object file produced by each
-technique.
-It also produces a dot file with control-flow graph produced by each
-technique, including the baseline with no branch fusion.
+technique. It also produces a dot file with control-flow graph produced by each
+technique, including the baseline CFG. The generated dot files can be viewed using
+an online graph viewer like (https://dreampuf.github.io/GraphvizOnline/)[https://dreampuf.github.io/GraphvizOnline/].
 
 For example, running on a AArch64 machine produces the following output:
 ```
@@ -69,6 +70,30 @@ object file with a text size of 745 bytes, while the other techniques produce
 a text size of 813 bytes. A reduction of 8.36%.
 
 
+Similarly, the file `cfm-cs-better.c` contains a function where CFM-CS outperforms SEME-Fusion.
+Run following command to apply the transformations to this example.
+```
+bash run-cfm-exmaple.sh
+```
+On an X86 machine, this gives the output.
+```
+BASELINE
+   text    data     bss     dec     hex filename
+    446       0       0     446     1be cfm-better.c.baseline.o
+SEME-FUSION
+   text    data     bss     dec     hex filename
+    446       0       0     446     1be cfm-better.c.seme-fusion.o
+CFM-CS
+   text    data     bss     dec     hex filename
+    349       0       0     349     15d cfm-better.c.cfm.o
+HYBF
+   text    data     bss     dec     hex filename
+    349       0       0     349     15d cfm-better.c.hybf.o
+```
+This shows a size reduction of 21.75% in text section of the binary for CFM-CS
+ over baseline or SEME-Fusion.
+
+
 ### Modifying/Extending HyBF
 
 _HyBF_ is implemented as `LLVM-IR` transformation pass, therefore it can be extended to add new features or 
@@ -76,7 +101,7 @@ new branch fusion techniques. In this section, we give a brief overview of the s
 _HyBF_ along with details on what is implemented on each source file.
 
 
-_HyBF_ is implemented as a `LLVM` module pass in `<ARTIFACT_HOME>/llvm/lib/Transforms/Scalar/HybridBranchFusion.cpp`. The `run`
+_HyBF_ is implemented as a `LLVM` module pass in `llvm/lib/Transforms/Scalar/HybridBranchFusion.cpp`. The `run`
 method of this module pass iterate over all functions of the module and apply the best branch fusion technique 
 (out of CFM-CS and SEME-Fusion) to given conditional branch location.
 Application of HyBF for a given function is implemented in `runImpl` method. 
@@ -87,6 +112,6 @@ If any of the techniques is profitable, the best approach is applied for the ori
 Any other novel branch fusion technique can be also integrated into the `runImpl` method similarly.
 
 
-_SEME-Fusion_ technique is implemented in `<ARTIFACT_HOME>/llvm/lib/Transforms/Scalar/BranchFusion.cpp` and
-_CFM-CS_ technique is implemented inside `<ARTIFACT_HOME>/llvm/lib/Transforms/CFMelder/` directory.
+_SEME-Fusion_ technique is implemented in `llvm/lib/Transforms/Scalar/BranchFusion.cpp` and
+_CFM-CS_ technique is implemented inside `llvm/lib/Transforms/CFMelder/` directory.
 
