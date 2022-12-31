@@ -1,4 +1,6 @@
-# CC-2023 Artifact Evaluation Instructions for the Paper _HyBF: A Hybrid Branch Fusion Strategy for Code Size Reduction_
+# CC-2023 Artifact Evaluation:  
+## _HyBF: A Hybrid Branch Fusion Strategy for Code Size Reduction_
+
 ## Dependencies
 
 The default apt packages should be enough for Ubuntu >= 19.10. Default packages plus a pre-built cmake should work for Ubuntu >= 18.04. For older systems, you might have to satisfy the dependencies manually. 
