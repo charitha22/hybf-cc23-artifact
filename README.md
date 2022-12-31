@@ -14,6 +14,22 @@ Collecting statistics and plotting the results:
 Running the MiBench benchmark suite:  
 * zlib1g-dev   
 
+## Building Clang/LLVM
+
+In order to run HyBF and the different branch fusion techniques, we first
+need to build the LLVM compiler toolchain. We provide two helper scripts.
+
+The first script runs `cmake` with the appropriate flags.
+```
+bash scripts/run-cmake.sh
+```
+
+The second script builds the LLVM compiler toolchain, including `clang`.
+```
+bash scripts/build-install.sh
+```
+After running the above command, the folder `install/bin` should contain
+`clang` and `opt` that can be used for compiling C/C++ code using HyBF.
 
 ## Customization and Reusability 
 ### Experiment Customization
