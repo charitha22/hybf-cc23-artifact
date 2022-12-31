@@ -1,5 +1,4 @@
-# hybf-cc23-artifact
-
+# CC-2023 Artifact Evaluation Instructions for the Paper _HyBF: A Hybrid Branch Fusion Strategy for Code Size Reduction_
 ## Dependencies
 
 Building LLVM:   
