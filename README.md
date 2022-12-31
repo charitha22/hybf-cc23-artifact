@@ -5,8 +5,11 @@ The default apt packages should be enough for Ubuntu >= 19.10. Default packages 
 
 ### Building LLVM: 
 * cmake (>= 3.13.4)
+
     If your system's cmake is older than that, source ./scripts/install-cmake.sh to install a recent pre-built binary and add it to the path
+
 * build-essential
+
     This will pull the rest of the dependencies
 
 For more information about LLVM dependencies check the [LLVM project page](https://llvm.org/docs/GettingStarted.html#software).
