@@ -1,4 +1,4 @@
-# CC-2023 Artifact: "_HyBF: A Hybrid Branch Fusion Strategy for Code Size Reduction_"
+# CC'23 Artifact: "_HyBF: A Hybrid Branch Fusion Strategy for Code Size Reduction_"
 
 ## Dependencies
 
@@ -48,6 +48,33 @@ After running the above command, the folder `install/bin` should contain
 ## Reproducing the Main Results
 
 ### MiBench
+
+Inside the folder `benchmarks/mibench`, run the command:
+```
+bash run-code-size.sh
+```
+This will build all programs listed in the file `BenchNames` using the various
+branch fusion techniques. If any compilation error occur, you can look at the
+log information in the `.txt` files produced for each individual program
+and branch fusion technique. However, no errors should be expected if all
+dependencies are installed and the LLVM toolchain has been built correctly.
+
+The command above will produce a `results.csv` file containing the text size
+of the object file produced for each benchmark program and for each branch
+fusion technique.
+In order to generate the bar plot with the code size reduction, as shown in
+Figure 10 of the paper, run the following command line inside the folder
+`benchmarks`.
+```
+bash plot-code-size.py mibench/results.csv
+```
+The command line above will produce the files named `absolute-reduction.pdf`
+and `percentage-reduction.pdf`.
+The first contains the plot with the absolute reduction, in bytes, achieved
+by each technique, while the second contains the relative reduction with
+respect to the baseline version without any branch fusion optimization.
+
+
 
 
 ## Customization and Reusability 
