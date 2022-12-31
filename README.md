@@ -28,12 +28,14 @@ For more information about LLVM dependencies check the [LLVM project page](https
 In order to run HyBF and the different branch fusion techniques, we first
 need to build the LLVM compiler toolchain. We provide three helper scripts.
 
-The first (optional) script downloads a recent pre-bulit CMake
+The first script is optional, in case your system version of CMake is older
+than the minimum required version.
+This script downloads a recent pre-bulit CMake
 ```
 source scripts/install-cmake.sh
 ```
 
-The second script runs `cmake` with the appropriate flags.
+The second script runs CMake with the appropriate flags.
 ```
 bash scripts/run-cmake.sh
 ```
@@ -114,7 +116,6 @@ object file with a text size of 745 bytes, while the other techniques produce
 a text size of 813 bytes. A reduction of 8.36%. Note that HyBF applies the best version 
 of the two techniques, therefore in this case HyBF end up applying SEME-Fusion
 obtaining the same reduction in size.
-
 
 Similarly, the file `cfm-better.c` contains a function where CFM-CS outperforms SEME-Fusion.
 Run the following command to apply the transformations to this example.
