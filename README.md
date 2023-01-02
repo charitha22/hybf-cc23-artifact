@@ -19,6 +19,7 @@ For more information about LLVM dependencies check the [LLVM project page](https
 * python3 (>= 3.6)
 * python3-numpy (>= 1.13)  
 * python3-matplotlib (>= 2.1)
+* xdot
 
 ### Running the MiBench benchmark suite:  
 * zlib1g-dev   
@@ -92,7 +93,13 @@ to this example.
 bash run-seme-fusion-example.sh
 ```
 This command outputs the text size of the object file produced by each
-technique. For example, running on a AArch64 machine produces the following output:
+technique. It also produces a dot file with control-flow graph produced by each
+technique, including the baseline CFG. The generated dot files can be viewed using
+either `xdot` on Linux or an online graph viewer such as [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/).
+By comparing the control-flow graphs produced, one can identify the
+differences that result from branch fusion.
+
+For example, running on a AArch64 machine produces the following output:
 ```
 BASELINE
    text	   data	    bss	    dec	    hex	filename
