@@ -92,11 +92,7 @@ to this example.
 bash run-seme-fusion-example.sh
 ```
 This command outputs the text size of the object file produced by each
-technique. It also produces a dot file with control-flow graph produced by each
-technique, including the baseline CFG. The generated dot files can be viewed using
-an online graph viewer like [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/).
-
-For example, running on a AArch64 machine produces the following output:
+technique. For example, running on a AArch64 machine produces the following output:
 ```
 BASELINE
    text	   data	    bss	    dec	    hex	filename
@@ -117,7 +113,13 @@ a text size of 813 bytes. A reduction of 8.36%. Note that HyBF applies the best 
 of the two techniques, therefore in this case HyBF end up applying SEME-Fusion
 obtaining the same reduction in size.
 
-Similarly, the file `cfm-better.c` contains a function where CFM-CS outperforms SEME-Fusion.
+This script also produces a dot file with control-flow graph produced by each
+technique, including the baseline CFG. The generated dot files can be viewed using
+an online graph viewer like [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/).
+For example, `seme-fusion-better.c.baseline.dot` contains the CFG for the baseline CFG (before applying any transformation), 
+`seme-fusion-better.c.seme-fusion.dot` contains the CFG after applying SEME-Fusion transformation.
+
+The file `cfm-better.c` contains a function where CFM-CS outperforms SEME-Fusion.
 Run the following command to apply the transformations to this example.
 ```
 bash run-cfm-exmaple.sh
@@ -138,7 +140,8 @@ HYBF
     316	      0	      0	    316	    13c	cfm-better.c.hybf.o
 ```
 This shows a size reduction of 10.22% in text section of the binary for CFM-CS
- over baseline or SEME-Fusion.
+ over baseline or SEME-Fusion. Similar to above, you can view the generated .dot files to 
+ see how CFM-CS changes the CFG of the function.
 
 
 ### Modifying/Extending HyBF
