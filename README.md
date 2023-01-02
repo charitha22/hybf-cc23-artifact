@@ -99,24 +99,24 @@ either `xdot` on Linux or an online graph viewer such as [GraphvizOnline](https:
 By comparing the control-flow graphs produced, one can identify the
 differences that result from branch fusion.
 
-For example, running on a AArch64 machine produces the following output:
+For example, running on an X86 machine this script produces the following output:
 ```
 BASELINE
-   text	   data	    bss	    dec	    hex	filename
-    813	      0	     16	    829	    33d	seme-fusion-better.c.baseline.o
+   text    data     bss     dec     hex filename
+    922       0      16     938     3aa seme-fusion-better.c.baseline.o
 SEME-FUSION
-   text	   data	    bss	    dec	    hex	filename
-    745	      0	     16	    761	    2f9	seme-fusion-better.c.seme-fusion.o
+   text    data     bss     dec     hex filename
+    821       0      16     837     345 seme-fusion-better.c.seme-fusion.o
 CFM-CS
-   text	   data	    bss	    dec	    hex	filename
-    813	      0	     16	    829	    33d	seme-fusion-better.c.cfm.o
+   text    data     bss     dec     hex filename
+    922       0      16     938     3aa seme-fusion-better.c.cfm.o
 HYBF
-   text	   data	    bss	    dec	    hex	filename
-    745	      0	     16	    761	    2f9	seme-fusion-better.c.hybf.o
+   text    data     bss     dec     hex filename
+    821       0      16     837     345 seme-fusion-better.c.hybf.o
 ```
 The output above shows that both SEME-Fusion and HyBF produce an
-object file with a text size of 745 bytes, while the other techniques produce
-a text size of 813 bytes. A reduction of 8.36%. Note that HyBF applies the best version 
+object file with a text size of 821 bytes, while the other techniques produce
+a text size of 922 bytes. A reduction of 10.95%. Note that HyBF applies the best version 
 of the two techniques, therefore in this case HyBF end up applying SEME-Fusion
 obtaining the same reduction in size.
 
@@ -131,22 +131,22 @@ Run the following command to apply the transformations to this example.
 ```
 bash run-cfm-exmaple.sh
 ```
-On an AArch64 machine, the command above produces the following output:
+On an X86 machine, the command above produces the following output:
 ```
 BASELINE
-   text	   data	    bss	    dec	    hex	filename
-    352	      0	      0	    352	    160	cfm-better.c.baseline.o
+   text    data     bss     dec     hex filename
+    446       0       0     446     1be cfm-better.c.baseline.o
 SEME-FUSION
-   text	   data	    bss	    dec	    hex	filename
-    352	      0	      0	    352	    160	cfm-better.c.seme-fusion.o
+   text    data     bss     dec     hex filename
+    446       0       0     446     1be cfm-better.c.seme-fusion.o
 CFM-CS
-   text	   data	    bss	    dec	    hex	filename
-    316	      0	      0	    316	    13c	cfm-better.c.cfm.o
+   text    data     bss     dec     hex filename
+    349       0       0     349     15d cfm-better.c.cfm.o
 HYBF
-   text	   data	    bss	    dec	    hex	filename
-    316	      0	      0	    316	    13c	cfm-better.c.hybf.o
+   text    data     bss     dec     hex filename
+    349       0       0     349     15d cfm-better.c.hybf.o
 ```
-This shows a size reduction of 10.22% in text section of the binary for CFM-CS
+This shows a size reduction of 21.75% in text section of the binary for CFM-CS
  over baseline or SEME-Fusion. Similar to above, you can view the generated .dot files to 
  see how CFM-CS changes the CFG of the function.
 
