@@ -2,6 +2,10 @@
 
 The artifact is publicly available at https://github.com/charitha22/hybf-cc23-artifact.
 We provide scripts that automate the installation and use of this artifact.
+You can clone the artifact repository using the command below:
+```
+git clone https://github.com/charitha22/hybf-cc23-artifact.git
+```
 
 ## Dependencies
 
