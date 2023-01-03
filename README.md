@@ -117,6 +117,8 @@ This command outputs the text size of the object file produced by each
 technique. It also produces a dot file with control-flow graph produced by each
 technique, including the baseline CFG. The generated dot files can be viewed using
 either `xdot` on Linux or an online graph viewer such as [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/).
+For example, `seme-fusion-better.c.baseline.dot` contains the CFG for the baseline CFG, without any branch fusion, 
+`seme-fusion-better.c.seme-fusion.dot` contains the CFG after applying SEME-Fusion transformation.
 By comparing the control-flow graphs produced, one can identify the
 differences that result from branch fusion.
 
@@ -141,12 +143,6 @@ a text size of 922 bytes. A reduction of 10.95%. Note that HyBF applies the best
 of the two techniques, therefore in this case HyBF end up applying SEME-Fusion
 obtaining the same reduction in size.
 
-This script also produces a dot file with control-flow graph produced by each
-technique, including the baseline CFG. The generated dot files can be viewed using
-an online graph viewer like [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/).
-For example, `seme-fusion-better.c.baseline.dot` contains the CFG for the baseline CFG (before applying any transformation), 
-`seme-fusion-better.c.seme-fusion.dot` contains the CFG after applying SEME-Fusion transformation.
-
 The file `cfm-better.c` contains a function where CFM-CS outperforms SEME-Fusion.
 Run the following command to apply the transformations to this example.
 ```
@@ -170,7 +166,6 @@ HYBF
 This shows a size reduction of 21.75% in text section of the binary for CFM-CS
  over baseline or SEME-Fusion. Similar to above, you can view the generated .dot files to 
  see how CFM-CS changes the CFG of the function.
-
 
 ### Modifying/Extending HyBF
 
