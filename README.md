@@ -77,6 +77,27 @@ The first contains the plot with the absolute reduction, in bytes, achieved
 by each technique, while the second contains the relative reduction with
 respect to the baseline version without any branch fusion optimization.
 
+### SPEC 2006 and 2017
+
+Inside `benchmarks`, the folders `spec06` and `spec17` contain similar
+build scripts to those found in the `mibench` folder.
+Because both SPEC 2006 and SPEC 2017 require private access, we only
+provide the build scripts as part of this artifact.
+However, one only need to copy the `src` folder of each program in
+the benchmark suites to their corresponding folder in our evaluation
+environment.
+The `Makefile.config` in the folder of each program contains a list
+of the source files expected.
+
+Once the source files of each program have been copied to their
+corresponding folder, we can follow the same steps as described for
+MiBench.
+We also provide a `run-code-size.sh` script inside the `spec06` and `spec17`
+folders, which produces the `results.csv` file with the code size numbers
+and the log information in the `.txt` files.
+
+The `plot-code-size.py` Python script can also be used in the same way
+as described for MiBench.
 
 ## Customization and Reusability 
 ### Experiment Customization
