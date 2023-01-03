@@ -1,5 +1,8 @@
 # CC'23 Artifact: "_HyBF: A Hybrid Branch Fusion Strategy for Code Size Reduction_"
 
+The artifact is publicly available [https://github.com/charitha22/hybf-cc23-artifact].
+We provide scripts that automate the installation and use of this artifact.
+
 ## Dependencies
 
 The default apt packages should be enough for Ubuntu >= 19.10. Default packages plus a pre-built cmake should work for Ubuntu >= 18.04. For older systems, you might have to satisfy the dependencies manually. 
