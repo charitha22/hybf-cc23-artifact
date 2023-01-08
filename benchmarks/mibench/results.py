@@ -33,7 +33,6 @@ def main():
     bench = Path(sys.argv[1])
     sizeexec = sys.argv[2]
     ftypes = sys.argv[3:]
-
     for ftype in ftypes:
         filename = bench / 'build' / ftype
         pr = subprocess.run([sizeexec, str(filename)], check=True, stdout=subprocess.PIPE, universal_newlines=True)

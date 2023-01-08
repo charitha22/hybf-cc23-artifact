@@ -4,6 +4,8 @@ cd ${DIR}
 
 BENCHMARKS=$(cat BenchNames)
 
+cp Makefile.default.nolto Makefile.default
+
 for BENCH in ${BENCHMARKS}; do
   rm -f ${BENCH}/build/*
   mkdir -p ${BENCH}/build/
@@ -27,6 +29,6 @@ for BENCH in ${BENCHMARKS}; do
 
   #for VERSION in baseline soa brfusion-pa brfusion-nw cfmelder cfmelder-brfusion-pa cfmelder-brfusion-nw; do
   for VERSION in baseline soa brfusion-pa cfmelder cfmelder-brfusion-pa; do
-    python results.py ${BENCH} ${LLVM_SIZE} ${VERSION} >> ./results.csv
+    python3 results.py ${BENCH} ${LLVM_SIZE} ${VERSION} >> ./results.csv
   done
 done

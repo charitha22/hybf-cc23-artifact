@@ -4,6 +4,8 @@ cd ${DIR}
 
 BENCHMARKS=$(cat BenchNames)
 
+cp Makefile.default.nolto Makefile.default
+
 for BENCH in ${BENCHMARKS}; do
   rm -f ${BENCH}/build/*
   mkdir -p ${BENCH}/build/
