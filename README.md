@@ -83,6 +83,7 @@ and `percentage-reduction.pdf`.
 The first contains the plot with the absolute reduction, in bytes, achieved
 by each technique, while the second contains the relative reduction with
 respect to the baseline version without any branch fusion optimization.
+These plots represent the Figure 10(a) of the paper.
 
 ### SPEC 2006 and 2017
 
@@ -105,8 +106,43 @@ and the log information in the `.txt` files.
 
 The `plot-code-size.py` Python script can also be used in the same way
 as described for MiBench.
+This script will produce the files named `absolute-reduction.pdf`
+and `percentage-reduction.pdf`.
+For the `spec17/results.csv`, these plots
+represent the Figure 10(b) of the paper.
+
+
+### Comparison with Function Merging
+
+Inside the folder for each benchmark suite in the `bechmarks` folder,
+we have the `run-code-size-lto.sh` script.
+This script builds the benchmark programs with link-time optimizations (LTO)
+enabled, including the state-of-the-art function merging technique.
+This allows us to analyze the impact of our branch fusion technique on top
+of another state-of-the-art code size optimization.
+This script can be executed with the command below:
+```
+bash run-code-size-lto.sh
+```
+
+After running the `run-code-size-lto.sh` scrip, e.g., inside the `mibench`
+folder, it will also produce a `results.csv` file that we can use to generate
+the bar plots.
+To this end, we can use again the `plot-code-size.py` Python script, which
+is located in the `benchmarks` folder, as shown below:
+```
+python3 plot-code-size.py mibench/results.csv
+```
+This script will produce the same files named `absolute-reduction.pdf`
+and `percentage-reduction.pdf`, but this time they will be representing
+Figure 12 from the paper, where all versions were built in LTO mode
+with function merging enabled.
 
 ## Customization and Reusability 
+
+This section is intended for researchers interested 
+in doing any future work that either uses or extends our optimization pass.
+
 ### Experiment Customization
 
 To demonstrate how _HyBF_ and its accompanying branch fusion techniques works
