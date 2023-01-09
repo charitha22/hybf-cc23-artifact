@@ -32,3 +32,5 @@ for BENCH in ${BENCHMARKS}; do
     python3 results.py ${BENCH} ${LLVM_SIZE} ${VERSION} >> ./results.csv
   done
 done
+
+python3 ../plot-code-size.py ./results.csv

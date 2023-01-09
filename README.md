@@ -72,13 +72,8 @@ dependencies are installed and the LLVM toolchain has been built correctly.
 The command above will produce a `results.csv` file containing the text size
 of the object file produced for each benchmark program and for each branch
 fusion technique.
-In order to generate the bar plot with the code size reduction, as shown in
-Figure 10 of the paper, run the following command line inside the folder
-`benchmarks`.
-```
-python3 plot-code-size.py mibench/results.csv
-```
-The command line above will produce the files named `absolute-reduction.pdf`
+
+This command will also produce the files named `absolute-reduction.pdf`
 and `percentage-reduction.pdf`.
 The first contains the plot with the absolute reduction, in bytes, achieved
 by each technique, while the second contains the relative reduction with
@@ -103,14 +98,9 @@ MiBench.
 We also provide a `run-code-size.sh` script inside the `spec06` and `spec17`
 folders, which produces the `results.csv` file with the code size numbers
 and the log information in the `.txt` files.
-
-The `plot-code-size.py` Python script can also be used in the same way
-as described for MiBench.
-This script will produce the files named `absolute-reduction.pdf`
+This script will also produce the files named `absolute-reduction.pdf`
 and `percentage-reduction.pdf`.
-For the `spec17/results.csv`, these plots
-represent the Figure 10(b) of the paper.
-
+For the `spec17`, these plots represent the Figure 10(b) of the paper.
 
 ### Comparison with Function Merging
 
@@ -125,16 +115,11 @@ This script can be executed with the command below:
 bash run-code-size-lto.sh
 ```
 
-After running the `run-code-size-lto.sh` scrip, e.g., inside the `mibench`
-folder, it will also produce a `results.csv` file that we can use to generate
-the bar plots.
-To this end, we can use again the `plot-code-size.py` Python script, which
-is located in the `benchmarks` folder, as shown below:
-```
-python3 plot-code-size.py mibench/results.csv
-```
-This script will produce the same files named `absolute-reduction.pdf`
-and `percentage-reduction.pdf`, but this time they will be representing
+After running the `run-code-size-lto.sh` script, e.g., inside the `mibench`
+folder, this script will also produce a `results.csv` file 
+as well as the files named `absolute-reduction.pdf`
+and `percentage-reduction.pdf`.
+However, these plots now represent 
 Figure 12 from the paper, where all versions were built in LTO mode
 with function merging enabled.
 

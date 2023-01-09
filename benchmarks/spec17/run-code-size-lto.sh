@@ -36,3 +36,5 @@ for BENCH in ${BENCHMARKS}; do
   done
 done
 done
+
+python3 ../plot-code-size.py ./results.csv

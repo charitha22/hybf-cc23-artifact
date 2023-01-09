@@ -38,9 +38,9 @@ colors = ['#4F9DA6', '#FFAD5A', '#FF5959']
 
 mapname = {}
 mapname['soa'] = 'Single-Block'
-mapname['cfmelder'] = 'CFMelder'
+mapname['cfmelder'] = 'CFM-CS'
 mapname['brfusion-pa'] = 'SEME-Fusion'
-mapname['cfmelder-brfusion-pa'] = 'Combined'
+mapname['cfmelder-brfusion-pa'] = 'HyBF'
 
 
 pdata = {}
