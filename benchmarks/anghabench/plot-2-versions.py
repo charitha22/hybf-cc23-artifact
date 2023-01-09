@@ -75,4 +75,4 @@ plt.ylim(minY - 0.01*minY , maxY + maxY*0.01)
 
 
 #plt.show()
-plt.savefig('llvm-size.pdf')
+plt.savefig('percentage-reduction.pdf')

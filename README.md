@@ -123,6 +123,25 @@ However, these plots now represent
 Figure 12 from the paper, where all versions were built in LTO mode
 with function merging enabled.
 
+### AnghaBench
+
+Inside the folder `benchmarks/anghabench`, run the command:
+```
+bash run-code-size.sh
+```
+This will build a subset of the 1 million functions from AnghaBench, which
+is listed in the file `BenchNames`, using the various
+branch fusion techniques.
+The command above will produce a `results.csv` file containing the number of
+LLVM instructions for each function in the benchmark suite and for each branch
+fusion technique.
+
+This command will also produce a file named `percentage-reduction.pdf`, which
+contains a plot with two curves showing the percentage reduction of
+CFM-CS (blue curve) and HyBF (red curve) relative to the baseline
+version without any branch fusion optimization.
+This plot represent the Figure 11 of the paper.
+
 ## Customization and Reusability 
 
 This section is intended for researchers interested 

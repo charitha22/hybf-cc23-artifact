@@ -15,7 +15,9 @@ else
   ALL_FILES=$(find . -name "*.c")
 fi
 
-:>llvm-size.csv
+
+OUTPUTFILE=results.csv
+:>$OUTPUTFILE
 
 for FILE in $ALL_FILES; do
   rm -f baseline.ll cfm.ll seme-fusion.ll hybf.ll
@@ -25,7 +27,7 @@ for FILE in $ALL_FILES; do
   $CLANG -Oz -mllvm -enable-brfusion=false $FILE -emit-llvm -S -o baseline.ll 2>/dev/null
   if test -f baseline.ll; then
     $LLOPT -instcount -stats baseline.ll -o /dev/null 2>tmp.txt
-    echo "$FILE,baseline,$(python3 result.py tmp.txt)" >> llvm-size.csv
+    echo "$FILE,baseline,$(python3 result.py tmp.txt)" >> $OUTPUTFILE
   fi
 
   #echo "SEME-FUSION"
@@ -33,7 +35,7 @@ for FILE in $ALL_FILES; do
   $CLANG -Oz $BRFUSION $FILE -emit-llvm -S -o seme-fusion.ll 2>/dev/null 
   if test -f seme-fusion.ll; then
     $LLOPT -instcount -stats seme-fusion.ll -o /dev/null 2>tmp.txt
-    echo "$FILE,SEME-Fusion,$(python3 result.py tmp.txt)" >> llvm-size.csv
+    echo "$FILE,SEME-Fusion,$(python3 result.py tmp.txt)" >> $OUTPUTFILE
   fi
 
   #echo "CFM-CS"
@@ -41,7 +43,7 @@ for FILE in $ALL_FILES; do
   $CLANG -Oz $CFMELDER $FILE -emit-llvm -S -o cfm.ll 2>/dev/null  
   if test -f cfm.ll; then
     $LLOPT -instcount -stats cfm.ll -o /dev/null 2>tmp.txt
-    echo "$FILE,CFM-CS,$(python3 result.py tmp.txt)" >> llvm-size.csv
+    echo "$FILE,CFM-CS,$(python3 result.py tmp.txt)" >> $OUTPUTFILE
   fi
 
   #echo "HYBF"
@@ -49,13 +51,14 @@ for FILE in $ALL_FILES; do
   $CLANG -Oz $HYBF $FILE -emit-llvm -S -o hybf.ll 2>/dev/null
   if test -f hybf.ll; then
     $LLOPT -instcount -stats hybf.ll -o /dev/null 2>tmp.txt
-    echo "$FILE,HyBF,$(python3 result.py tmp.txt)" >> llvm-size.csv
+    echo "$FILE,HyBF,$(python3 result.py tmp.txt)" >> $OUTPUTFILE
   fi
 
 done
 
 rm -f tmp.txt
+rm -f baseline.ll cfm.ll seme-fusion.ll hybf.ll
 
-#python3 plot-2-versions.py llvm-size.csv cfmelder cfmelder-brfusion-hyfm-pa
-python3 plot-2-versions.py llvm-size.csv CFM-CS HyBF
+#python3 plot-2-versions.py $OUTPUTFILE cfmelder cfmelder-brfusion-hyfm-pa
+python3 plot-2-versions.py $OUTPUTFILE CFM-CS HyBF
 
