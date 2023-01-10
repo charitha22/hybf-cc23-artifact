@@ -92,6 +92,11 @@ environment.
 The `Makefile.config` in the folder of each program contains a list
 of the source files expected.
 
+**NOTE** : to automate the benchmark copying we provide the script `copy-bench.sh` inside each of the 
+`spec06` and `spec17` directories. To use this script update the `SPEC06_LOC` and `SPEC17_LOC`
+variables in the corresponding script with the absolute path of the downloaded 
+`spec06` or `spec17` directories.
+
 Once the source files of each program have been copied to their
 corresponding folder, we can follow the same steps as described for
 MiBench.
