@@ -44,4 +44,4 @@ for ftype in ftypes:
   stream = os.popen(sizeexec+' '+filename)
   data = stream.read().strip().split('\n')[1]
   text_size = data.split()[0]
-  print str(bench)+', '+str(ftype)+', '+str(text_size)
+  print(str(bench)+', '+str(ftype)+', '+str(text_size))
