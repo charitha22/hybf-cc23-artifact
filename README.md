@@ -33,6 +33,7 @@ For more information about LLVM dependencies check the [LLVM project page](https
 
 ### Running 403.gcc in spec06
 * gcc-multilib
+* g++-multilib
 
 ## Building Clang/LLVM
 
