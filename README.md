@@ -29,7 +29,10 @@ For more information about LLVM dependencies check the [LLVM project page](https
 * xdot
 
 ### Running the MiBench benchmark suite:  
-* zlib1g-dev   
+* zlib1g-dev
+
+### Running 403.gcc in spec06
+* gcc-multilib
 
 ## Building Clang/LLVM
 
