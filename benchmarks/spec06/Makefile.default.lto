@@ -1,0 +1,78 @@
+
+EXTRA_OPT := -mllvm -enable-brfusion=false
+
+SOA=false
+BRFUSION=false
+HYFMPA=false
+HYFMNW=false
+CFMELDER=false
+
+ATLEASTONE=false
+
+ifeq ($(USE_HYFMPA),true)
+HYFMPA=true
+HYFMNW=false
+endif
+ifeq ($(USE_HYFMNW),true)
+HYFMNW=true
+HYFMPA=false
+endif
+
+ifeq ($(ENABLE_BRFUSION),true)
+BRFUSION=true
+ATLEASTONE=true
+endif
+
+ifeq ($(ENABLE_SOA),true)
+SOA=true
+HYFMPA=false
+HYFMNW=true
+ATLEASTONE=true
+endif
+
+ifeq ($(ENABLE_CFMELDER),true)
+CFMELDER=true
+ATLEASTONE=true
+endif
+
+
+EXTRA_OPT := -mllvm -enable-brfusion=$(ATLEASTONE) -mllvm -run-brfusion-only=$(BRFUSION) -mllvm -run-cfm-only=$(CFMELDER) -mllvm -brfusion-dot=false -mllvm -brfusion-soa=$(SOA)  -mllvm -func-merging-hyfm-nw=$(HYFMNW)  -mllvm -func-merging-hyfm-pa=$(HYFMPA) -mllvm -func-merging-debug=true -mllvm -func-merging-verbose=false
+
+%.bc: %.cpp
+	$(CXX) $(OPT) -emit-llvm -c $< -o $@ $(CFLAGS) $(EXTRA_OPT)
+
+%.bc: %.cc
+	$(CXX) $(OPT) -emit-llvm -c $< -o $@ $(CFLAGS) $(EXTRA_OPT)
+
+%.bc: %.c
+	$(CC) $(OPT) -emit-llvm -c $< -o $@ $(CFLAGS) $(EXTRA_OPT)
+
+%.bc: %.C
+	$(CC) $(OPT) -emit-llvm -c $< -o $@ $(CFLAGS) $(EXTRA_OPT)
+
+LBINS = $(addsuffix .bc,$(basename $(SRC)))
+
+
+LINKEDBIN=build/_main_._all_._files_._linked_.bc
+
+$(LINKEDBIN): $(LBINS)
+	mkdir -p build
+	$(LLINK) $(LBINS) -o $(LINKEDBIN)
+	$(LLOPT) -mergereturn $(LINKEDBIN) -o $(LINKEDBIN)
+
+baseline: $(LINKEDBIN)
+	$(LLOPT) $(LINKEDBIN) -o $(BIN).tmp.bc
+	#$(CXX) -x ir $(BIN).tmp.bc $(OPT) -o $(BIN).baseline.o -c $(LDFLAGS)
+	#$(CXX) -x ir $(BIN).tmp.bc $(OPT) -o $(BIN).baseline $(LDFLAGS) 
+	$(CXX) -x ir $(BIN).tmp.bc $(OPT) -o $(BIN).o -c $(LDFLAGS)
+	$(CXX) -x ir $(BIN).tmp.bc $(OPT) -o $(BIN) $(LDFLAGS) 
+
+hyfm-pa: $(LINKEDBIN)
+	$(LLOPT) -mergefunc -func-merging -func-merging-hyfm-pa=true $(LINKEDBIN) -o $(BIN).tmp.bc
+	#$(CXX) -x ir $(BIN).tmp.bc $(OPT) -o $(BIN).hyfm-pa.o -c $(LDFLAGS)
+	#$(CXX) -x ir $(BIN).tmp.bc $(OPT) -o $(BIN).hyfm-pa $(LDFLAGS) -fno-align-functions -s
+	$(CXX) -x ir $(BIN).tmp.bc $(OPT) -o $(BIN).o -c $(LDFLAGS)
+	$(CXX) -x ir $(BIN).tmp.bc $(OPT) -o $(BIN) $(LDFLAGS) -fno-align-functions -s
+
+clean:
+	$(RM) -f $(OBJS) $(LBINS)

@@ -1,0 +1,40 @@
+LLVM_SIZE=../../install/bin/llvm-size
+DIR=$(dirname $0)
+cd ${DIR}
+
+BENCHMARKS=$(cat BenchNames)
+
+cp Makefile.default.lto Makefile.default
+
+#for LTOV in baseline hyfm-pa; do
+for LTOV in hyfm-pa; do
+for BENCH in ${BENCHMARKS}; do
+  rm -f ${BENCH}/build/*
+  mkdir -p ${BENCH}/build/
+  cd ${BENCH}
+  echo ${BENCH}
+  make clean >/dev/null
+  /usr/bin/time -f "${BENCH},baseline,%E" sh -c "make $LTOV BIN=build/baseline 2>../${BENCH}.baseline.txt 1>/dev/null" 2>> ../compilation.csv
+  make clean >/dev/null
+  /usr/bin/time -f "${BENCH},soa,%E" sh -c "make $LTOV ENABLE_BRFUSION=true ENABLE_SOA=true BIN=build/soa 2>../${BENCH}.soa.txt 1>/dev/null" 2>> ../compilation.csv
+  make clean >/dev/null
+  /usr/bin/time -f "${BENCH},brfusion-pa,%E" sh -c "make $LTOV ENABLE_BRFUSION=true USE_HYFMPA=true  BIN=build/brfusion-pa 2>../${BENCH}.brfusion-pa.txt 1>/dev/null" 2>> ../compilation.csv
+  #make clean >/dev/null
+  #/usr/bin/time -f "${BENCH},brfusion-nw,%E" sh -c "make ENABLE_BRFUSION=true USE_HYFMNW=true BIN=build/brfusion-nw 2>../${BENCH}.brfusion-nw.txt 1>/dev/null" 2>> ../compilation.csv
+  make clean >/dev/null
+  /usr/bin/time -f "${BENCH},cfmelder,%E" sh -c "make $LTOV ENABLE_CFMELDER=true BIN=build/cfmelder 2>../${BENCH}.cfmelder.txt 1>/dev/null" 2>> ../compilation.csv
+  make clean >/dev/null
+  /usr/bin/time -f "${BENCH},cfmelder-brfusion-pa,%E" sh -c "make $LTOV ENABLE_CFMELDER=true ENABLE_BRFUSION=true USE_HYFMPA=true  BIN=build/cfmelder-brfusion-pa 2>../${BENCH}.cfmelder-brfusion-pa.txt 1>/dev/null" 2>> ../compilation.csv
+  #make clean >/dev/null
+  #/usr/bin/time -f "${BENCH},cfmelder-brfusion-nw,%E" sh -c "make ENABLE_CFMELDER=true ENABLE_BRFUSION=true USE_HYFMNW=true BIN=build/cfmelder-brfusion-nw 2>../${BENCH}.cfmelder-brfusion-nw.txt 1>/dev/null" 2>> ../compilation.csv
+  cd ..
+
+  #for VERSION in baseline soa brfusion-pa brfusion-nw cfmelder cfmelder-brfusion-pa cfmelder-brfusion-nw; do
+  for VERSION in baseline soa brfusion-pa cfmelder cfmelder-brfusion-pa; do
+    #python3 results.py ${BENCH} ${LLVM_SIZE} ${VERSION}.$LTOV >> ./results.csv
+    python3 results.py ${BENCH} ${LLVM_SIZE} ${VERSION} >> ./results.csv
+  done
+done
+done
+
+python3 ../plot-code-size.py ./results.csv
